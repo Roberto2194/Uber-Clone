@@ -7,23 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C19A553287A0BA400AE2500 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C19A552287A0BA400AE2500 /* Extensions.swift */; };
 		2C34155F28777E57005877AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C34155E28777E57005877AD /* AppDelegate.swift */; };
 		2C34156128777E57005877AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C34156028777E57005877AD /* SceneDelegate.swift */; };
-		2C34156328777E57005877AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C34156228777E57005877AD /* ViewController.swift */; };
 		2C34156628777E57005877AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C34156428777E57005877AD /* Main.storyboard */; };
 		2C34156828777E59005877AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C34156728777E59005877AD /* Assets.xcassets */; };
 		2C34156B28777E59005877AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C34156928777E59005877AD /* LaunchScreen.storyboard */; };
+		2C34157828778176005877AD /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C34157728778176005877AD /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C19A552287A0BA400AE2500 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2C34155B28777E57005877AD /* Uber-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Uber-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C34155E28777E57005877AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C34156028777E57005877AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2C34156228777E57005877AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C34156528777E57005877AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C34156728777E59005877AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C34156A28777E59005877AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C34156C28777E59005877AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C34157728778176005877AD /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,56 @@
 		2C34155D28777E57005877AD /* Uber-Clone */ = {
 			isa = PBXGroup;
 			children = (
+				2C341572287780C6005877AD /* Utils (helper folder) */,
+				2C341573287780CC005877AD /* Service (API and DB) */,
+				2C341576287780D3005877AD /* Model */,
+				2C341574287780D0005877AD /* Controller */,
+				2C341575287780D1005877AD /* View */,
 				2C34155E28777E57005877AD /* AppDelegate.swift */,
 				2C34156028777E57005877AD /* SceneDelegate.swift */,
-				2C34156228777E57005877AD /* ViewController.swift */,
 				2C34156428777E57005877AD /* Main.storyboard */,
 				2C34156728777E59005877AD /* Assets.xcassets */,
 				2C34156928777E59005877AD /* LaunchScreen.storyboard */,
 				2C34156C28777E59005877AD /* Info.plist */,
 			);
 			path = "Uber-Clone";
+			sourceTree = "<group>";
+		};
+		2C341572287780C6005877AD /* Utils (helper folder) */ = {
+			isa = PBXGroup;
+			children = (
+				2C19A552287A0BA400AE2500 /* Extensions.swift */,
+			);
+			path = "Utils (helper folder)";
+			sourceTree = "<group>";
+		};
+		2C341573287780CC005877AD /* Service (API and DB) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Service (API and DB)";
+			sourceTree = "<group>";
+		};
+		2C341574287780D0005877AD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2C34157728778176005877AD /* LoginController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2C341575287780D1005877AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2C341576287780D3005877AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +181,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C34156328777E57005877AD /* ViewController.swift in Sources */,
 				2C34155F28777E57005877AD /* AppDelegate.swift in Sources */,
+				2C34157828778176005877AD /* LoginController.swift in Sources */,
 				2C34156128777E57005877AD /* SceneDelegate.swift in Sources */,
+				2C19A553287A0BA400AE2500 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
