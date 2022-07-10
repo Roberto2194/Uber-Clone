@@ -66,6 +66,5 @@ extension UIView {
 extension UIColor {
     
     static let defaultBackgroundColor: UIColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
-
     
 }
