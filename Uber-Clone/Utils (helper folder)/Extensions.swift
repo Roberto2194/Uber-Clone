@@ -2,7 +2,7 @@
 //  Extensions.swift
 //  Uber-Clone
 //
-//  Created by kalpa on 09/07/22.
+//  Created by Roberto on 09/07/22.
 //
 
 import UIKit
@@ -77,7 +77,7 @@ extension UIView {
         
         return view
     }
-
+    
 }
 
 // MARK: - UIColor
@@ -129,9 +129,53 @@ extension UIStackView {
     func stackView(withArrangement subviews: [UIView]) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: subviews)
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         stackView.spacing = 24
         return stackView
     }
     
+}
+
+//MARK: - UILabel
+
+extension UILabel {
+    
+    func uberTitleLabel() -> UILabel {
+        let label = UILabel()
+        label.text = "UBER"
+        label.font = UIFont(name: "Avenir-Light", size: 36)
+        label.textColor = UIColor(white: 1, alpha: 0.8)
+        return label
+    }
+    
+}
+
+//MARK: - UIButton
+
+extension UIButton {
+    
+    func button(withTitle title: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(UIColor(white: 1, alpha: 0.5), for: .normal)
+        button.backgroundColor = .mainBlueTint
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.anchor(height: 45)
+        return button
+    }
+    
+    func button(ofAccountType account: String, signType: String) -> UIButton {
+        let button = UIButton(type: .system)
+        
+        let attributedTitle = NSMutableAttributedString(string: "\(account) ", attributes:
+                                                            [.font : UIFont.systemFont(ofSize: 16),
+                                                             .foregroundColor : UIColor.lightGray])
+        attributedTitle.append(NSAttributedString(string: signType, attributes:
+                                                    [.font : UIFont.boldSystemFont(ofSize: 16),
+                                                     .foregroundColor : UIColor.mainBlueTint]))
+        
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        return button
+    }
 }

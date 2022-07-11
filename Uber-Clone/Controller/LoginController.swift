@@ -2,7 +2,7 @@
 //  LoginController.swift
 //  Uber-Clone
 //
-//  Created by kalpa on 07/07/22.
+//  Created by Roberto on 07/07/22.
 //
 
 import UIKit
@@ -12,11 +12,7 @@ class LoginController: UIViewController {
     // MARK: - Properties
     
     private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "UBER"
-        label.font = UIFont(name: "Avenir-Light", size: 36)
-        label.textColor = UIColor(white: 1, alpha: 0.8)
-        return label
+        return UILabel().uberTitleLabel()
     }()
     
     private let emailImageView: UIImageView = {
@@ -44,13 +40,7 @@ class LoginController: UIViewController {
     }()
     
     private let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Log In", for: .normal)
-        button.setTitleColor(UIColor(white: 1, alpha: 0.5), for: .normal)
-        button.backgroundColor = .mainBlueTint
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        return button
+        return UIButton().button(withTitle: "Log In")
     }()
     
     private lazy var stackView: UIStackView = {
@@ -58,18 +48,8 @@ class LoginController: UIViewController {
     }()
     
     private let noAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        
-        let attributedTitle = NSMutableAttributedString(string: "Don't have an account? ", attributes:
-                                                                                        [.font : UIFont.systemFont(ofSize: 16),
-                                                                                        .foregroundColor : UIColor.lightGray])
-        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes:
-                                                                    [.font : UIFont.boldSystemFont(ofSize: 16),
-                                                                    .foregroundColor : UIColor.mainBlueTint]))
-        
+        let button = UIButton().button(ofAccountType: "Don't have an account? ", signType: "Sign Up")
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        
         return button
     }()
     
@@ -82,7 +62,7 @@ class LoginController: UIViewController {
         
         view.addSubview(titleLabel)
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, centerX: view.centerXAnchor)
-            
+        
         view.addSubview(stackView)
         stackView.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                          paddingTop: 40, paddingLeft: 16, paddingRight: 16)
@@ -90,9 +70,9 @@ class LoginController: UIViewController {
         view.addSubview(noAccountButton)
         noAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: view.centerXAnchor, height: 32)
     }
-        
+    
     // MARK: - Functions
-
+    
     @objc private func handleShowSignUp() {
         let controller = SignUpController()
         navigationController?.pushViewController(controller, animated: true)
@@ -102,5 +82,5 @@ class LoginController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
     }
-            
+    
 }
