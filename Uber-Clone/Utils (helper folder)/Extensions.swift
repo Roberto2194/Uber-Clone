@@ -20,7 +20,9 @@ extension UIView {
                 paddingLeft: CGFloat = 0,
                 paddingRight: CGFloat = 0,
                 centerX: NSLayoutXAxisAnchor? = nil,
+                centerXConstant: CGFloat = 0,
                 centerY: NSLayoutYAxisAnchor? = nil,
+                centerYConstant: CGFloat = 0,
                 width: CGFloat? = nil,
                 height: CGFloat? = nil) {
         
@@ -43,11 +45,11 @@ extension UIView {
         }
         
         if let centerX = centerX {
-            centerXAnchor.constraint(equalTo: centerX).isActive = true
+            centerXAnchor.constraint(equalTo: centerX, constant: centerXConstant).isActive = true
         }
         
         if let centerY = centerY {
-            centerYAnchor.constraint(equalTo: centerY).isActive = true
+            centerYAnchor.constraint(equalTo: centerY, constant: centerYConstant).isActive = true
         }
         
         if let width = width {
@@ -142,8 +144,8 @@ extension UILabel {
     
     func uberTitleLabel() -> UILabel {
         let label = UILabel()
-        label.text = "UBER"
-        label.font = UIFont(name: "Avenir-Light", size: 36)
+        label.text = "UILabelText".localized
+        label.font = UIFont(name: "UILabelUIFontName".localized, size: 36)
         label.textColor = UIColor(white: 1, alpha: 0.8)
         return label
     }
@@ -177,5 +179,13 @@ extension UIButton {
         
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
+    }
+}
+
+//MARK: - String
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
 }

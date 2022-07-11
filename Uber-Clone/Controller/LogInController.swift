@@ -1,5 +1,5 @@
 //
-//  LoginController.swift
+//  LogInController.swift
 //  Uber-Clone
 //
 //  Created by Roberto on 07/07/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginController: UIViewController {
+class LogInController: UIViewController {
     
     // MARK: - Properties
     
@@ -16,19 +16,19 @@ class LoginController: UIViewController {
     }()
     
     private let emailImageView: UIImageView = {
-        return UIImageView().imageView(withName: "ic_mail_outline_white_2x")
+        return UIImageView().imageView(withName: "logInControllerEmailImageView".localized)
     }()
     
     private let passwordImageView: UIImageView = {
-        return UIImageView().imageView(withName: "ic_lock_outline_white_2x")
+        return UIImageView().imageView(withName: "logInControllerPasswordImageView".localized)
     }()
     
     private let emailTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Email")
+        return UITextField().textField(withPlaceholder: "logInControllerEmailTextField".localized)
     }()
     
     private let passwordTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Password", isSecureTextEntry: true)
+        return UITextField().textField(withPlaceholder: "logInControllerPasswordTextField".localized, isSecureTextEntry: true)
     }()
     
     private lazy var emailContainerView: UIView = {
@@ -40,7 +40,7 @@ class LoginController: UIViewController {
     }()
     
     private let loginButton: UIButton = {
-        return UIButton().button(withTitle: "Log In")
+        return UIButton().button(withTitle: "logInControllerLoginButton".localized)
     }()
     
     private lazy var stackView: UIStackView = {
@@ -48,7 +48,7 @@ class LoginController: UIViewController {
     }()
     
     private let noAccountButton: UIButton = {
-        let button = UIButton().button(ofAccountType: "Don't have an account? ", signType: "Sign Up")
+        let button = UIButton().button(ofAccountType: "logInControllerNoAccountButtonOfAccountType".localized, signType: "logInControllerNoAccountButtonSignType".localized)
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
     }()

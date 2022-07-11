@@ -16,35 +16,35 @@ class SignUpController: UIViewController {
     }()
     
     private let emailImageView: UIImageView = {
-        return UIImageView().imageView(withName: "ic_mail_outline_white_2x")
+        return UIImageView().imageView(withName: "signUpControllerEmailImageView".localized)
     }()
     
     private let fullNameImageView: UIImageView = {
-        return UIImageView().imageView(withName: "ic_person_outline_white_2x")
+        return UIImageView().imageView(withName: "signUpControllerFullNameImageView".localized)
     }()
     
     private let passwordImageView: UIImageView = {
-        return UIImageView().imageView(withName: "ic_lock_outline_white_2x")
+        return UIImageView().imageView(withName: "signUpControllerPasswordImageView".localized)
     }()
     
     private let accountTypeImageView: UIImageView = {
-        return UIImageView().imageView(withName: "ic_account_box_white_2x")
+        return UIImageView().imageView(withName: "signUpControllerAccountTypeImageView".localized)
     }()
     
     private let emailTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Email")
+        return UITextField().textField(withPlaceholder: "signUpControllerEmailTextField".localized)
     }()
     
     private let fullNameTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Full Name")
+        return UITextField().textField(withPlaceholder: "signUpControllerFullNameTextField".localized)
     }()
     
     private let passwordTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Password", isSecureTextEntry: true)
+        return UITextField().textField(withPlaceholder: "signUpControllerPasswordTextField".localized, isSecureTextEntry: true)
     }()
     
     private let accountTypeSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Rider", "Driver"])
+        let segmentedControl = UISegmentedControl(items: ["signUpControllerAccountTypeSegmentedControlRiderItem".localized, "signUpControllerAccountTypeSegmentedControlDriverItem".localized])
         segmentedControl.backgroundColor = .backgroundColor
         segmentedControl.tintColor = UIColor(white: 1, alpha: 0.87)
         segmentedControl.selectedSegmentIndex = 0
@@ -71,7 +71,7 @@ class SignUpController: UIViewController {
         accountTypeImageView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: -8, paddingLeft: 8, width: 24, height: 24)
         
         view.addSubview(accountTypeSegmentedControl)
-        accountTypeSegmentedControl.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 8, paddingRight: 8, centerY: view.centerYAnchor, height: 30)
+        accountTypeSegmentedControl.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 8, paddingRight: 8, centerY: view.centerYAnchor, centerYConstant: 8)
         
         let separatorView = UIView()
         separatorView.backgroundColor = .lightGray
@@ -82,7 +82,7 @@ class SignUpController: UIViewController {
     }()
     
     private let signUpButton: UIButton = {
-        return UIButton().button(withTitle: "Sign Up")
+        return UIButton().button(withTitle: "signUpControllerSignUpButton".localized)
     }()
     
     private lazy var stackView: UIStackView = {
@@ -90,7 +90,7 @@ class SignUpController: UIViewController {
     }()
     
     private let withAccountButton: UIButton = {
-        let button = UIButton().button(ofAccountType: "Already have an account? ", signType: "Sign In")
+        let button = UIButton().button(ofAccountType: "signUpControllerNoAccountButtonOfAccountType".localized, signType: "signUpControllerNoAccountButtonSignType".localized)
         button.addTarget(self, action: #selector(handleShowSignIn), for: .touchUpInside)
         return button
     }()
@@ -115,9 +115,7 @@ class SignUpController: UIViewController {
     //MARK: - Functions
     
     @objc func handleShowSignIn() {
-        // let controller = LoginController()
-        // TODO: - needs to be modified:
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
 }
