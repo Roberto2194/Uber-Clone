@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignUpController: UIViewController {
     
@@ -16,35 +17,35 @@ class SignUpController: UIViewController {
     }()
     
     private let emailImageView: UIImageView = {
-        return UIImageView().imageView(withName: "signUpControllerEmailImageView".localized)
+        return UIImageView().imageView(withName: "ic_mail_outline_white_2x")
     }()
     
     private let fullNameImageView: UIImageView = {
-        return UIImageView().imageView(withName: "signUpControllerFullNameImageView".localized)
+        return UIImageView().imageView(withName: "ic_person_outline_white_2x")
     }()
     
     private let passwordImageView: UIImageView = {
-        return UIImageView().imageView(withName: "signUpControllerPasswordImageView".localized)
+        return UIImageView().imageView(withName: "ic_lock_outline_white_2x")
     }()
     
     private let accountTypeImageView: UIImageView = {
-        return UIImageView().imageView(withName: "signUpControllerAccountTypeImageView".localized)
+        return UIImageView().imageView(withName: "ic_account_box_white_2x")
     }()
     
     private let emailTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "signUpControllerEmailTextField".localized)
+        return UITextField().textField(withPlaceholder: "Email")
     }()
     
     private let fullNameTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "signUpControllerFullNameTextField".localized)
+        return UITextField().textField(withPlaceholder: "Full Name")
     }()
     
     private let passwordTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "signUpControllerPasswordTextField".localized, isSecureTextEntry: true)
+        return UITextField().textField(withPlaceholder: "Password", isSecureTextEntry: true)
     }()
     
     private let accountTypeSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["signUpControllerAccountTypeSegmentedControlRiderItem".localized, "signUpControllerAccountTypeSegmentedControlDriverItem".localized])
+        let segmentedControl = UISegmentedControl(items: ["Rider", "Driver"])
         segmentedControl.backgroundColor = .backgroundColor
         segmentedControl.tintColor = UIColor(white: 1, alpha: 0.87)
         segmentedControl.selectedSegmentIndex = 0
@@ -82,7 +83,9 @@ class SignUpController: UIViewController {
     }()
     
     private let signUpButton: UIButton = {
-        return UIButton().button(withTitle: "signUpControllerSignUpButton".localized)
+        let button = UIButton().button(withTitle: "Sign Up")
+        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        return button
     }()
     
     private lazy var stackView: UIStackView = {
@@ -90,7 +93,7 @@ class SignUpController: UIViewController {
     }()
     
     private let withAccountButton: UIButton = {
-        let button = UIButton().button(ofAccountType: "signUpControllerNoAccountButtonOfAccountType".localized, signType: "signUpControllerNoAccountButtonSignType".localized)
+        let button = UIButton().button(ofAccountType: "Already have an account? ", signType: "Sign In")
         button.addTarget(self, action: #selector(handleShowSignIn), for: .touchUpInside)
         return button
     }()
@@ -114,7 +117,27 @@ class SignUpController: UIViewController {
     
     //MARK: - Functions
     
-    @objc func handleShowSignIn() {
+    @objc private func handleSignUp() {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let fullname = fullNameTextField.text else { return }
+        let accountType = accountTypeSegmentedControl.selectedSegmentIndex
+        
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let uid = result?.user.uid else { return }
+            let values = ["email": email, "fullname": fullname, "accountType": accountType] as [String : Any]
+            
+            let database = Database.database(url: "https://uber-clone-3a678-default-rtdb.europe-west1.firebasedatabase.app")
+            database.reference().child("users").child(uid).updateChildValues(values) { error, reference in
+                print("successfully registered user and saved data...")
+            }
+        }
+    }
+    
+    @objc private func handleShowSignIn() {
         navigationController?.popViewController(animated: true)
     }
     

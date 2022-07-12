@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LogInController: UIViewController {
     
@@ -16,19 +17,19 @@ class LogInController: UIViewController {
     }()
     
     private let emailImageView: UIImageView = {
-        return UIImageView().imageView(withName: "logInControllerEmailImageView".localized)
+        return UIImageView().imageView(withName: "ic_mail_outline_white_2x")
     }()
     
     private let passwordImageView: UIImageView = {
-        return UIImageView().imageView(withName: "logInControllerPasswordImageView".localized)
+        return UIImageView().imageView(withName: "ic_lock_outline_white_2x")
     }()
     
     private let emailTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "logInControllerEmailTextField".localized)
+        return UITextField().textField(withPlaceholder: "Email")
     }()
     
     private let passwordTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "logInControllerPasswordTextField".localized, isSecureTextEntry: true)
+        return UITextField().textField(withPlaceholder: "Password", isSecureTextEntry: true)
     }()
     
     private lazy var emailContainerView: UIView = {
@@ -40,7 +41,9 @@ class LogInController: UIViewController {
     }()
     
     private let loginButton: UIButton = {
-        return UIButton().button(withTitle: "logInControllerLoginButton".localized)
+        let button = UIButton().button(withTitle: "Log In")
+        button.addTarget(self, action: #selector(handleLogIn), for: .touchUpInside)
+        return button
     }()
     
     private lazy var stackView: UIStackView = {
@@ -48,7 +51,7 @@ class LogInController: UIViewController {
     }()
     
     private let noAccountButton: UIButton = {
-        let button = UIButton().button(ofAccountType: "logInControllerNoAccountButtonOfAccountType".localized, signType: "logInControllerNoAccountButtonSignType".localized)
+        let button = UIButton().button(ofAccountType: "Don't have an account? ", signType: "Sign Up")
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
     }()
@@ -72,6 +75,20 @@ class LogInController: UIViewController {
     }
     
     // MARK: - Functions
+    
+    @objc private func handleLogIn() {
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            //TODO: - add the action to perform:
+            print("successfully logged in")
+            
+        }
+    }
     
     @objc private func handleShowSignUp() {
         let controller = SignUpController()

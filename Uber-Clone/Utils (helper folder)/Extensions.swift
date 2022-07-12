@@ -144,8 +144,8 @@ extension UILabel {
     
     func uberTitleLabel() -> UILabel {
         let label = UILabel()
-        label.text = "UILabelText".localized
-        label.font = UIFont(name: "UILabelUIFontName".localized, size: 36)
+        label.text = "UBER"
+        label.font = UIFont(name: "Avenir-Light", size: 36)
         label.textColor = UIColor(white: 1, alpha: 0.8)
         return label
     }
@@ -179,13 +179,5 @@ extension UIButton {
         
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
-    }
-}
-
-//MARK: - String
-
-extension String {
-    var localized: String {
-        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
 }
