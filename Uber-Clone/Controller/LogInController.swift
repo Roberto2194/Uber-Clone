@@ -87,8 +87,7 @@ class LogInController: UIViewController {
                 return
             }
             
-            strongSelf.dismiss(animated: true, completion: nil)
-            
+            strongSelf.dismiss(animated: true)
         }
 
     }

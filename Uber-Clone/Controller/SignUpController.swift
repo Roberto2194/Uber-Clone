@@ -133,7 +133,7 @@ class SignUpController: UIViewController {
             let database = Database.database(url: "https://uber-clone-3a678-default-rtdb.europe-west1.firebasedatabase.app")
             database.reference().child("users").child(uid).updateChildValues(values) { [weak self] (error, reference) in
                 guard let strongSelf = self else { return }
-                strongSelf.dismiss(animated: true, completion: nil)
+                strongSelf.dismiss(animated: true)
             }
         }
     }
