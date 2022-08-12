@@ -115,24 +115,25 @@ class SignUpController: UIViewController {
         withAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: view.centerXAnchor, height: 32)
     }
     
-    //MARK: - Functions
+    //MARK: - Methods
     
     @objc private func handleSignUp() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let fullname = fullNameTextField.text else { return }
         let accountType = accountTypeSegmentedControl.selectedSegmentIndex
         
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
             
-            guard let uid = result?.user.uid else { return }
+            guard let uid = authResult?.user.uid else { return }
             let values = ["email": email, "fullname": fullname, "accountType": accountType] as [String : Any]
             
             let database = Database.database(url: "https://uber-clone-3a678-default-rtdb.europe-west1.firebasedatabase.app")
-            database.reference().child("users").child(uid).updateChildValues(values) { error, reference in
-                print("successfully registered user and saved data...")
+            database.reference().child("users").child(uid).updateChildValues(values) { [weak self] (error, reference) in
+                guard let strongSelf = self else { return }
+                strongSelf.dismiss(animated: true, completion: nil)
             }
         }
     }

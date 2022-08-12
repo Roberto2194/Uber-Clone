@@ -74,20 +74,23 @@ class LogInController: UIViewController {
         noAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: view.centerXAnchor, height: 32)
     }
     
-    // MARK: - Functions
+    // MARK: - Methods
     
     @objc private func handleLogIn() {
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (authResult, error) in
+            guard let strongSelf = self else { return }
+            
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
             
-            //TODO: - add the action to perform:
-            print("successfully logged in")
+            strongSelf.dismiss(animated: true, completion: nil)
             
         }
+
     }
     
     @objc private func handleShowSignUp() {
