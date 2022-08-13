@@ -116,6 +116,20 @@ extension UITextField {
         return textField
     }
     
+    func locationTextField(withPlaceholder placeholder: String, backgroundColor: UIColor) -> UITextField {
+        let textField = UITextField()
+        textField.placeholder = placeholder
+        textField.backgroundColor = backgroundColor
+        textField.font = .systemFont(ofSize: 14)
+        
+        let paddingView = UIView()
+        paddingView.anchor(width: 8, height: 30)
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+        
+        return textField
+    }
+    
 }
 
 // MARK: - UIImageView

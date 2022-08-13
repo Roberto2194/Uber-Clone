@@ -18,7 +18,8 @@ class HomeController: UIViewController {
     
     private let locationInputActivationView = LocationInputActivationView()
     private let locationInputView = LocationInputView()
-        
+    private let tableView = UITableView()
+            
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -31,6 +32,11 @@ class HomeController: UIViewController {
         
         locationInputActivationView.delegate = self
         locationInputView.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +57,15 @@ class HomeController: UIViewController {
             self.locationInputActivationView.alpha = 1
         }
                 
+        // tableView
+        tableView.register(LocationCell.self, forCellReuseIdentifier: "LocationCell")
+        tableView.rowHeight = 60
+        
+        let tableViewHeight = view.frame.height - 200.0
+        tableView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: tableViewHeight)
+
+        view.addSubview(tableView)
     }
-    
     //MARK: - Methods
     
     func checkUserLoggedIn() {
@@ -129,6 +142,19 @@ extension HomeController: LocationInputViewDelegate {
         } completion: { _ in
             self.locationInputActivationView.alpha = 1
         }
+    }
+    
+}
+
+extension HomeController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! LocationCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
     }
     
 }
