@@ -44,6 +44,8 @@ class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        fetchUserData()
+
         // mapView
         view.addSubview(mapView)
         mapView.frame = view.frame
@@ -87,6 +89,10 @@ class HomeController: UIViewController {
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
+    }
+    
+    func fetchUserData() {
+        Service.shared.fetchUserData()
     }
 
 }
