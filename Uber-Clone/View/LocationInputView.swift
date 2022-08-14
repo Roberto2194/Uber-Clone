@@ -72,7 +72,6 @@ class LocationInputView: UIView {
         addShadow()
         
         addSubview(backButton)
-        // TODO: - Understand why the safe area is giving problems here
         backButton.anchor(top: topAnchor, left: leftAnchor, paddingTop: 44, paddingLeft: 12, width: 24, height: 24)
         
         addSubview(titleLabel)
