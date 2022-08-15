@@ -19,6 +19,12 @@ class HomeController: UIViewController {
     private let locationInputActivationView = LocationInputActivationView()
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
+    
+    private var user: User? {
+        didSet {
+            locationInputView.user = user
+        }
+    }
             
     private let locationInputViewHeight: CGFloat = 200.0
     
@@ -92,7 +98,9 @@ class HomeController: UIViewController {
     }
     
     func fetchUserData() {
-        Service.shared.fetchUserData()
+        Service.shared.fetchUserData { user in
+            self.user = user
+        }
     }
 
 }

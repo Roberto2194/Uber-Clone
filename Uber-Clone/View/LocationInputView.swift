@@ -17,6 +17,12 @@ class LocationInputView: UIView {
     
     weak var delegate: LocationInputViewDelegate?
     
+    var user: User? {
+        didSet {
+            titleLabel.text = user?.fullname
+        }
+    }
+    
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "baseline_arrow_back_black_36dp-1")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -26,8 +32,6 @@ class LocationInputView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        // TODO: - Instead of hardcoded text, the property label.text is gonna have wherever is the name of the user as its value
-        label.text = "Roberto Liccardo"
         label.textColor = .darkGray
         label.font = .systemFont(ofSize: 16)
         return label
