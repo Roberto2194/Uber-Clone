@@ -7,10 +7,13 @@
 
 import UIKit
 import Firebase
+import GeoFire
 
 class SignUpController: UIViewController {
     
     //MARK: - Properties
+    
+    private let location = LocationHandler.shared.locationManager.location
     
     private let titleLabel: UILabel = {
         return UILabel().uberTitleLabel()
@@ -115,11 +118,9 @@ class SignUpController: UIViewController {
         withAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: view.centerXAnchor, height: 32)
     }
     
-    //MARK: - Methods
-    
     @objc private func handleSignUp() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let fullname = fullNameTextField.text else { return }
-        let accountType = accountTypeSegmentedControl.selectedSegmentIndex
+        let accountTypeIndex = accountTypeSegmentedControl.selectedSegmentIndex
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -128,13 +129,20 @@ class SignUpController: UIViewController {
             }
             
             guard let uid = authResult?.user.uid else { return }
-            let values = ["email": email, "fullname": fullname, "accountType": accountType] as [String : Any]
-            
-            let database = Database.database(url: "https://uber-clone-3a678-default-rtdb.europe-west1.firebasedatabase.app")
-            database.reference().child("users").child(uid).updateChildValues(values) { [weak self] (error, reference) in
-                guard let strongSelf = self else { return }
-                strongSelf.dismiss(animated: true)
+            let values = ["email": email, "fullname": fullname, "accountType": accountTypeIndex] as [String : Any]
+           
+            if accountTypeIndex == 1 {
+                let geofire = GeoFire(firebaseRef: Constants.REF_DRIVER_LOCATION)
+                guard let location = self.location else { return }
+                
+                geofire.setLocation(location, forKey: uid) { error in
+                    Constants.REF_USERS.child(uid).updateChildValues(values)
+                    self.dismiss(animated: true)
+                }
             }
+            
+            Constants.REF_USERS.child(uid).updateChildValues(values)
+            self.dismiss(animated: true)
         }
     }
     

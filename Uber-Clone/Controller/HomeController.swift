@@ -34,9 +34,8 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         
         checkUserLoggedIn()
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
+
+        locationManager = LocationHandler.shared.locationManager
         
         locationInputActivationView.delegate = self
         locationInputView.delegate = self
@@ -92,6 +91,11 @@ class HomeController: UIViewController {
     func signOut() {
         do {
             try Auth.auth().signOut()
+            DispatchQueue.main.async {
+                let loginController = UINavigationController(rootViewController: LogInController())
+                loginController.modalPresentationStyle = .fullScreen
+                self.present(loginController, animated: true, completion: nil)
+            }
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -106,31 +110,6 @@ class HomeController: UIViewController {
 }
 
 //MARK: - Extensions
-
-extension HomeController: CLLocationManagerDelegate {
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .notDetermined:
-            print("not determined")
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            print("restricted")
-        case .denied:
-            print("denied")
-        case .authorizedAlways:
-            print("authorized always")
-            locationManager.startUpdatingLocation()
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        case .authorizedWhenInUse:
-            print("authorized when in use")
-            locationManager.requestAlwaysAuthorization()
-        @unknown default:
-            print("unknown")
-        }
-    }
-    
-}
 
 extension HomeController: LocationInputActivationViewDelegate {
     
