@@ -20,7 +20,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager.delegate = self
     }
-      
+          
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .notDetermined:

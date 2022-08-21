@@ -119,7 +119,10 @@ class SignUpController: UIViewController {
     }
     
     @objc private func handleSignUp() {
-        guard let email = emailTextField.text, let password = passwordTextField.text, let fullname = fullNameTextField.text else { return }
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let fullname = fullNameTextField.text
+        else { return }
         let accountTypeIndex = accountTypeSegmentedControl.selectedSegmentIndex
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
@@ -134,11 +137,7 @@ class SignUpController: UIViewController {
             if accountTypeIndex == 1 {
                 let geofire = GeoFire(firebaseRef: Constants.REF_DRIVER_LOCATION)
                 guard let location = self.location else { return }
-                
-                geofire.setLocation(location, forKey: uid) { error in
-                    Constants.REF_USERS.child(uid).updateChildValues(values)
-                    self.dismiss(animated: true)
-                }
+                geofire.setLocation(location, forKey: uid)
             }
             
             Constants.REF_USERS.child(uid).updateChildValues(values)

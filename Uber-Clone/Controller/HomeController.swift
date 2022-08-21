@@ -50,6 +50,7 @@ class HomeController: UIViewController {
         super.viewWillAppear(animated)
         
         fetchUserData()
+        fetchDrivers()
 
         // mapView
         view.addSubview(mapView)
@@ -78,32 +79,37 @@ class HomeController: UIViewController {
     
     //MARK: - Methods
     
-    func checkUserLoggedIn() {
+    private func checkUserLoggedIn() {
         if Auth.auth().currentUser == nil {
-            DispatchQueue.main.async {
-                let loginController = UINavigationController(rootViewController: LogInController())
-                loginController.modalPresentationStyle = .fullScreen
-                self.present(loginController, animated: true, completion: nil)
-            }
+            self.presentLoginController()
         }
     }
     
-    func signOut() {
+    private func signOut() {
         do {
             try Auth.auth().signOut()
-            DispatchQueue.main.async {
-                let loginController = UINavigationController(rootViewController: LogInController())
-                loginController.modalPresentationStyle = .fullScreen
-                self.present(loginController, animated: true, completion: nil)
-            }
+            self.presentLoginController()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
     
-    func fetchUserData() {
+    private func fetchUserData() {
         Service.shared.fetchUserData { user in
             self.user = user
+        }
+    }
+    
+    private func fetchDrivers() {
+        guard let location = locationManager.location else { return }
+        Service.shared.fetchDrivers(location: location)
+    }
+    
+    private func presentLoginController() {
+        DispatchQueue.main.async {
+            let loginController = UINavigationController(rootViewController: LogInController())
+            loginController.modalPresentationStyle = .fullScreen
+            self.present(loginController, animated: true, completion: nil)
         }
     }
 
